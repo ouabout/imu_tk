@@ -1,0 +1,12 @@
+-I/home/sst/work/imu_tk/./include
+-I/usr/include
+-I/usr/include
+-I/usr/include/eigen3
+-I/usr/local/include
+-I/usr/include/eigen3
+-I/usr/include
+-I/usr/include
+-I/home/sst/work/imu_tk/build
+-o
+/home/sst/work/imu_tk/build/include/imu_tk/vis_extra/moc_opengl_3d_scene.cxx
+/home/sst/work/imu_tk/include/imu_tk/vis_extra/opengl_3d_scene.h
