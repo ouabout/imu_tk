@@ -20,10 +20,14 @@ int main(int argc, char** argv)
   cout<<"Importing imu data form file : "<< argv[1]<<endl;  
   importAsciiData( argv[1],gyro_data, acc_data, imu_tk::TIMESTAMP_UNIT_SEC ); 
   
-  
+  //设置初始bias 和scale
+  //accl scale:0.000244*9.8  = 0.0023912 m/s^2
+  //gyro scale:0.061035/57.3 = 0.001065183 rad/s
   CalibratedTriad init_acc_calib, init_gyro_calib;
   init_acc_calib.setBias( Vector3d(0, 0, 0) );
-  init_gyro_calib.setScale( Vector3d(1.0, 1.0, 1.0) );
+  init_acc_calib.setScale( Vector3d(0.0024, 0.0024, 0.0024) );
+  init_gyro_calib.setBias( Vector3d(0, 0, 0) );
+  init_gyro_calib.setScale( Vector3d(0.001065, 0.001065, 0.001065) );
   
   MultiPosCalibration mp_calib;
     
@@ -33,7 +37,7 @@ int main(int argc, char** argv)
   mp_calib.setGravityMagnitude(9.8);
   mp_calib.enableVerboseOutput(true);
   mp_calib.enableAccUseMeans(true);
-  //mp_calib.setGyroDataPeriod(0.01);
+  //mp_calib.setGyroDataPeriod(0.005);
   mp_calib.calibrateAccGyro(acc_data, gyro_data );
   mp_calib.getAccCalib().save("test_imu_acc.calib");
   mp_calib.getGyroCalib().save("test_imu_gyro.calib");
